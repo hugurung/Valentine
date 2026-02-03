@@ -13,13 +13,42 @@ const answerArea = document.getElementById("answerArea");
 const noWrap = document.querySelector(".no-wrap");
 const noText = document.getElementById("noText");
 
- ✅ Customize these later
 const noMessages = [
   "Runchu hola ma 😭😭😭",
-  "Invalid Input 🥺🥺🥺",
+  "Invalid input 🥺🥺🥺",
 ];
+
 let msgIndex = 0;
 
+const noBtn = document.getElementById("noBtn");
+const noText = document.getElementById("noText");
+const noWrap = document.querySelector(".no-wrap");
+
+// Change text + dodge on hover
+noBtn.addEventListener("mouseenter", () => {
+  // rotate message
+  noText.textContent = noMessages[msgIndex];
+  msgIndex = (msgIndex + 1) % noMessages.length;
+
+  // show text
+  noWrap.classList.add("show-text");
+
+  // dodge logic
+  const parent = document.getElementById("answerArea");
+  const maxX = parent.clientWidth - noBtn.offsetWidth;
+  const maxY = parent.clientHeight - noBtn.offsetHeight;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+// hide text when mouse leaves
+noBtn.addEventListener("mouseleave", () => {
+  noWrap.classList.remove("show-text");
+});
 function showScreen(target) {
   [screen1, screen2, screen3].forEach(s => s.classList.remove("active"));
   target.classList.add("active");
@@ -123,6 +152,7 @@ yesBtn.addEventListener("click", () => {
   confettiBurst(160);   // 🎉
   showOnly(slide3);
 });
+
 
 
 
