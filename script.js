@@ -17,12 +17,37 @@ const noText = document.getElementById("noText");
 const heartsLayer = document.getElementById("heartsLayer");
 const confettiLayer = document.getElementById("confettiLayer");
 
-// ✅ Customize these later
 const noMessages = [
   "Runchu hola ma 😭😭😭",
   "Invalid input 🥺🥺🥺",
 ];
 let msgIndex = 0;
+
+let hideNoTextTimer = null;
+
+noBtn.addEventListener("mouseenter", () => {
+  // rotate message
+  noText.textContent = noMessages[msgIndex];
+  msgIndex = (msgIndex + 1) % noMessages.length;
+
+  // show message bubble (stay visible even after dodge)
+  noWrap.classList.add("show-text");
+
+  // dodge
+  moveNoButtonRandom();
+
+  // keep it visible for 1.8s
+  clearTimeout(hideNoTextTimer);
+  hideNoTextTimer = setTimeout(() => {
+    noWrap.classList.remove("show-text");
+  }, 1800);
+});
+
+// optional: if you want it to hide when you move away from the area entirely
+answerArea.addEventListener("mouseleave", () => {
+  clearTimeout(hideNoTextTimer);
+  noWrap.classList.remove("show-text");
+});
 
 // ===== Helpers =====
 function showScreen(target) {
@@ -136,6 +161,7 @@ function confettiBurst(amount = 150) {
     setTimeout(() => c.remove(), 5200);
   }
 }
+
 
 
 
