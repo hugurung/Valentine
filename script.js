@@ -14,10 +14,10 @@ const noWrap = document.querySelector(".no-wrap");
 const noText = document.getElementById("noText");
 
 // ✅ Customize these later
-const noMessages = [
-  "Runchu hola ma 😭😭😭",
-  "Invalid Input 🥺🥺🥺",
-];
+//const noMessages = [
+ // "Runchu hola ma 😭😭😭",
+  //"Invalid Input 🥺🥺🥺",
+//];
 let msgIndex = 0;
 
 function showScreen(target) {
@@ -123,4 +123,5 @@ yesBtn.addEventListener("click", () => {
   confettiBurst(160);   // 🎉
   showOnly(slide3);
 });
+
 
