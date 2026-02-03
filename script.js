@@ -1,5 +1,6 @@
 const openBtn = document.getElementById("openBtn");
 const closeBtn = document.getElementById("closeBtn");
+const wrapper = document.querySelector(".wrapper");
 
 const slide1 = document.getElementById("slide1");
 const slide2 = document.getElementById("slide2");
@@ -8,51 +9,59 @@ const slide3 = document.getElementById("slide3");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
-function showOnly(which) {
+function showOnly(target) {
   [slide1, slide2, slide3].forEach(s => s.classList.remove("active"));
-  which.classList.add("active");
+  target.classList.add("active");
 }
 
-// When you click Open: show Slide 1, then auto-advance to Slide 2 after 2 seconds
+function resetNoButtonPosition() {
+  // Put "No" back to its starting spot (right side)
+  noBtn.style.left = "";
+  noBtn.style.top = "50%";
+  noBtn.style.right = "10px";
+  noBtn.style.transform = "translateY(-50%)";
+}
+
 openBtn.addEventListener("click", () => {
-  document.querySelector(".wrapper").classList.add("open");
+  wrapper.classList.add("open");
   openBtn.style.display = "none";
   closeBtn.style.display = "inline-block";
 
+  // Show Happy Valentine's first
   showOnly(slide1);
+  resetNoButtonPosition();
 
+  // Then show the question after a moment
   setTimeout(() => {
     showOnly(slide2);
-  }, 2000);
+    resetNoButtonPosition();
+  }, 1200);
 });
 
-// Close: reset back to slide1
 closeBtn.addEventListener("click", () => {
-  document.querySelector(".wrapper").classList.remove("open");
+  wrapper.classList.remove("open");
   closeBtn.style.display = "none";
   openBtn.style.display = "inline-block";
 
   showOnly(slide1);
+  resetNoButtonPosition();
 });
 
-// YES -> slide3
 yesBtn.addEventListener("click", () => {
   showOnly(slide3);
 });
 
-// NO dodges
 noBtn.addEventListener("mouseenter", () => {
-  const parent = noBtn.parentElement;
-  parent.style.position = "relative";
+  // Dodge inside the answer-buttons container
+  const parent = noBtn.parentElement; // .answer-buttons
+  const maxX = parent.clientWidth - noBtn.offsetWidth;
+  const maxY = parent.clientHeight - noBtn.offsetHeight;
 
-  noBtn.style.position = "absolute";
+  const x = Math.max(0, Math.floor(Math.random() * maxX));
+  const y = Math.max(0, Math.floor(Math.random() * maxY));
 
-  const maxX = parent.offsetWidth - noBtn.offsetWidth;
-  const maxY = parent.offsetHeight - noBtn.offsetHeight;
-
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-
+  noBtn.style.right = "auto";
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
+  noBtn.style.transform = "none";
 });
