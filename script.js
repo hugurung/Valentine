@@ -15,11 +15,8 @@ const noText = document.getElementById("noText");
 
 // ✅ Customize these later
 const noMessages = [
-  "Don’t do this to me 😭",
-  "Pleaseeeee? 🥺",
-  "That hurts 😢",
-  "Think again 😳",
-  "We’d be so cute together 💕",
+  "Runchu hola ma 😭😭😭",
+  "Invalid Input 🥺🥺🥺",
 ];
 let msgIndex = 0;
 
@@ -126,3 +123,4 @@ yesBtn.addEventListener("click", () => {
   confettiBurst(160);   // 🎉
   showOnly(slide3);
 });
+
