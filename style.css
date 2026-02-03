@@ -291,7 +291,7 @@ button:hover{ filter: brightness(0.95); }
 }
 
 .teddy-emoji{
-  font-size: min(65vw, 65vh); /* adjust this number */
+  font-size: min(45vw, 45vh); /* adjust this number */
   line-height: 1;
   z-index: 2;
 }
@@ -312,6 +312,7 @@ button:hover{ filter: brightness(0.95); }
   50%{ transform: translateY(-12px) scale(1.1); }
   100%{ transform: translateY(0) scale(1); }
 }
+
 
 
 
