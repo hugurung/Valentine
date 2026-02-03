@@ -22,18 +22,18 @@ const noMessages = [
   "Runchu hola ma 😭😭😭",
   "Invalid input 🥺🥺🥺",
   "Nooo 😢",
-  "Try again 😭"
+  "Try again 😭",
 ];
 let msgIndex = 0;
 
 // ===== Helpers =====
 function showScreen(target) {
-  [screen1, screen2, screen3].forEach(s => s.classList.remove("active"));
+  [screen1, screen2, screen3].forEach((s) => s.classList.remove("active"));
   target.classList.add("active");
 }
 
 function resetNoButton() {
-  // return to default corner
+  // return to default corner (CSS uses right/bottom)
   noBtn.style.left = "";
   noBtn.style.top = "";
   noBtn.style.right = "0";
@@ -42,13 +42,15 @@ function resetNoButton() {
 
 function moveNoButtonRandom() {
   const pad = 10;
-  const maxX = answerArea.clientWidth - noBtn.offsetWidth - pad;
-  const maxY = answerArea.clientHeight - noBtn.offsetHeight - pad;
 
-  const x = Math.max(pad, Math.floor(Math.random() * maxX));
-  const y = Math.max(pad, Math.floor(Math.random() * maxY));
+  // Prevent negative max when container is small
+  const maxX = Math.max(0, answerArea.clientWidth - noBtn.offsetWidth - pad);
+  const maxY = Math.max(0, answerArea.clientHeight - noBtn.offsetHeight - pad);
 
-  // switch to left/top positioning
+  const x = pad + Math.floor(Math.random() * (maxX + 1));
+  const y = pad + Math.floor(Math.random() * (maxY + 1));
+
+  // IMPORTANT: unset right/bottom so left/top actually applies
   noBtn.style.right = "auto";
   noBtn.style.bottom = "auto";
   noBtn.style.left = `${x}px`;
@@ -80,13 +82,13 @@ yesBtn.addEventListener("click", () => {
   showScreen(screen3);
 });
 
-// ===== NO -> show message + dodge =====
+// ===== NO -> rotate message + show bubble + dodge =====
 noBtn.addEventListener("mouseenter", () => {
   // rotate message
   noText.textContent = noMessages[msgIndex];
   msgIndex = (msgIndex + 1) % noMessages.length;
 
-  // show bubble (your CSS uses .no-wrap:hover too, but this works either way)
+  // show bubble (works with your .no-wrap.show-text CSS)
   if (noWrap) noWrap.classList.add("show-text");
 
   // dodge
@@ -98,7 +100,7 @@ noBtn.addEventListener("mouseleave", () => {
 });
 
 // ===== Floating hearts =====
-const hearts = ["💗","💖","💕","💘","❤️"];
+const hearts = ["💗", "💖", "💕", "💘", "❤️"];
 
 function spawnHeart() {
   if (!heartsLayer) return;
@@ -110,10 +112,10 @@ function spawnHeart() {
   h.style.left = Math.random() * 100 + "vw";
   h.style.fontSize = 14 + Math.random() * 18 + "px";
   h.style.animationDuration = 4 + Math.random() * 3 + "s";
-  h.style.setProperty("--drift", (Math.random() * 120 - 60) + "px");
+  h.style.setProperty("--drift", Math.round(Math.random() * 120 - 60) + "px");
 
   heartsLayer.appendChild(h);
-  setTimeout(() => h.remove(), 7000);
+  setTimeout(() => h.remove(), 7500);
 }
 
 setInterval(spawnHeart, 300);
@@ -122,7 +124,7 @@ setInterval(spawnHeart, 300);
 function confettiBurst(amount = 150) {
   if (!confettiLayer) return;
 
-  const colors = ["#ff4d6d","#ffafcc","#cdb4db","#bde0fe","#caffbf"];
+  const colors = ["#ff4d6d", "#ffafcc", "#cdb4db", "#bde0fe", "#caffbf"];
 
   for (let i = 0; i < amount; i++) {
     const c = document.createElement("div");
@@ -136,6 +138,7 @@ function confettiBurst(amount = 150) {
     setTimeout(() => c.remove(), 5200);
   }
 }
+
 
 
 
