@@ -283,8 +283,8 @@ button:hover{ filter: brightness(0.95); }
 /* ===== Teddy with floating hearts (ADD this, do not replace file) ===== */
 .bg-teddy{
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
   margin: 0 auto 10px;
   display: flex;
   align-items: center;
@@ -314,5 +314,6 @@ button:hover{ filter: brightness(0.95); }
   50%{ transform: translateY(-12px) scale(1.1); }
   100%{ transform: translateY(0) scale(1); }
 }
+
 
 
