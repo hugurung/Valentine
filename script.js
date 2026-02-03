@@ -82,3 +82,47 @@ noBtn.addEventListener("mouseenter", () => {
   setTimeout(() => noWrap.classList.remove("show-text"), 900);
 });
 
+// ===== Floating hearts =====
+const heartsLayer = document.getElementById("heartsLayer");
+const hearts = ["💗","💖","💕","💘","❤️"];
+
+function spawnHeart(){
+  if (!heartsLayer) return;
+
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = 14 + Math.random() * 18 + "px";
+  h.style.animationDuration = 4 + Math.random() * 3 + "s";
+  h.style.setProperty("--drift", (Math.random() * 120 - 60) + "px");
+
+  heartsLayer.appendChild(h);
+  setTimeout(() => h.remove(), 7000);
+}
+
+setInterval(spawnHeart, 300);
+const confettiLayer = document.getElementById("confettiLayer");
+
+function confettiBurst(amount = 150){
+  if (!confettiLayer) return;
+
+  const colors = ["#ff4d6d","#ffafcc","#cdb4db","#bde0fe","#caffbf"];
+
+  for (let i = 0; i < amount; i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.animationDuration = 2.5 + Math.random() * 2.5 + "s";
+
+    confettiLayer.appendChild(c);
+    setTimeout(() => c.remove(), 5000);
+  }
+}
+yesBtn.addEventListener("click", () => {
+  confettiBurst(160);   // 🎉
+  showOnly(slide3);
+});
