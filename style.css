@@ -36,10 +36,14 @@ body{
 }
 
 .bg-teddy{
-  font-size: 140px;
-  line-height: 1;
+  width: 220px;
+  height: 220px;
+  background-image: url("Teddybear.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 auto;
 }
-
 .bg-hearts{
   font-size: 18px;
   margin-top: 6px;
@@ -234,5 +238,6 @@ button:hover{ filter: brightness(0.95); }
   opacity: 1;
   transform: translateY(0);
 }
+
 
 
