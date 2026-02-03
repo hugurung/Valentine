@@ -1,3 +1,4 @@
+// ===== Elements =====
 const openBtn = document.getElementById("openBtn");
 const closeBtn = document.getElementById("closeBtn");
 const wrapper = document.getElementById("wrapper");
@@ -10,51 +11,29 @@ const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const answerArea = document.getElementById("answerArea");
 
-const noWrap = document.querySelector(".no-wrap");
+const noWrap = document.getElementById("noWrap") || document.querySelector(".no-wrap");
 const noText = document.getElementById("noText");
 
+const heartsLayer = document.getElementById("heartsLayer");
+const confettiLayer = document.getElementById("confettiLayer");
+
+// ✅ Customize these later
 const noMessages = [
   "Runchu hola ma 😭😭😭",
   "Invalid input 🥺🥺🥺",
+  "Nooo 😢",
+  "Try again 😭"
 ];
-
 let msgIndex = 0;
 
-const noBtn = document.getElementById("noBtn");
-const noText = document.getElementById("noText");
-const noWrap = document.querySelector(".no-wrap");
-
-// Change text + dodge on hover
-noBtn.addEventListener("mouseenter", () => {
-  // rotate message
-  noText.textContent = noMessages[msgIndex];
-  msgIndex = (msgIndex + 1) % noMessages.length;
-
-  // show text
-  noWrap.classList.add("show-text");
-
-  // dodge logic
-  const parent = document.getElementById("answerArea");
-  const maxX = parent.clientWidth - noBtn.offsetWidth;
-  const maxY = parent.clientHeight - noBtn.offsetHeight;
-
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-});
-
-// hide text when mouse leaves
-noBtn.addEventListener("mouseleave", () => {
-  noWrap.classList.remove("show-text");
-});
+// ===== Helpers =====
 function showScreen(target) {
   [screen1, screen2, screen3].forEach(s => s.classList.remove("active"));
   target.classList.add("active");
 }
 
 function resetNoButton() {
+  // return to default corner
   noBtn.style.left = "";
   noBtn.style.top = "";
   noBtn.style.right = "0";
@@ -69,12 +48,14 @@ function moveNoButtonRandom() {
   const x = Math.max(pad, Math.floor(Math.random() * maxX));
   const y = Math.max(pad, Math.floor(Math.random() * maxY));
 
+  // switch to left/top positioning
   noBtn.style.right = "auto";
   noBtn.style.bottom = "auto";
   noBtn.style.left = `${x}px`;
   noBtn.style.top = `${y}px`;
 }
 
+// ===== Envelope buttons =====
 openBtn.addEventListener("click", () => {
   wrapper.classList.add("open");
   openBtn.style.display = "none";
@@ -93,26 +74,33 @@ closeBtn.addEventListener("click", () => {
   showScreen(screen1);
 });
 
+// ===== YES -> confetti + screen3 =====
 yesBtn.addEventListener("click", () => {
+  confettiBurst(160);
   showScreen(screen3);
 });
 
-// Show message + dodge
+// ===== NO -> show message + dodge =====
 noBtn.addEventListener("mouseenter", () => {
-  msgIndex = (msgIndex + 1) % noMessages.length;
+  // rotate message
   noText.textContent = noMessages[msgIndex];
+  msgIndex = (msgIndex + 1) % noMessages.length;
 
-  noWrap.classList.add("show-text");
+  // show bubble (your CSS uses .no-wrap:hover too, but this works either way)
+  if (noWrap) noWrap.classList.add("show-text");
+
+  // dodge
   moveNoButtonRandom();
+});
 
-  setTimeout(() => noWrap.classList.remove("show-text"), 900);
+noBtn.addEventListener("mouseleave", () => {
+  if (noWrap) noWrap.classList.remove("show-text");
 });
 
 // ===== Floating hearts =====
-const heartsLayer = document.getElementById("heartsLayer");
 const hearts = ["💗","💖","💕","💘","❤️"];
 
-function spawnHeart(){
+function spawnHeart() {
   if (!heartsLayer) return;
 
   const h = document.createElement("div");
@@ -129,14 +117,14 @@ function spawnHeart(){
 }
 
 setInterval(spawnHeart, 300);
-const confettiLayer = document.getElementById("confettiLayer");
 
-function confettiBurst(amount = 150){
+// ===== Confetti =====
+function confettiBurst(amount = 150) {
   if (!confettiLayer) return;
 
   const colors = ["#ff4d6d","#ffafcc","#cdb4db","#bde0fe","#caffbf"];
 
-  for (let i = 0; i < amount; i++){
+  for (let i = 0; i < amount; i++) {
     const c = document.createElement("div");
     c.className = "confetti";
 
@@ -145,13 +133,10 @@ function confettiBurst(amount = 150){
     c.style.animationDuration = 2.5 + Math.random() * 2.5 + "s";
 
     confettiLayer.appendChild(c);
-    setTimeout(() => c.remove(), 5000);
+    setTimeout(() => c.remove(), 5200);
   }
 }
-yesBtn.addEventListener("click", () => {
-  confettiBurst(160);   // 🎉
-  showOnly(slide3);
-});
+
 
 
 
