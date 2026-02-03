@@ -8,53 +8,64 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body class="container">
+<body>
 
-  <!-- Envelope + Letter -->
-  <div class="text">
-    <div class="wrapper">
-      <div class="lid one"></div>
-      <div class="lid two"></div>
-      <div class="envelope"></div>
+  <!-- ✅ Global background (shows on ALL slides) -->
+  <div class="bg">
+    <div class="bg-inner">
+      <div class="bg-teddy">🧸</div>
+      <div class="bg-hearts">💗 💗 💗</div>
+    </div>
+  </div>
 
-      <div class="letter">
-        <!-- Slide 1 (keep envelope format) -->
-        <div class="slide active" id="slide1">
-          <p class="slide-title">Happy Valentine’s ❤️❤️❤️</p>
-        </div>
+  <!-- ===== Screen 1: Envelope ===== -->
+  <section id="screen1" class="screen active">
+    <div class="text">
+      <div class="wrapper" id="wrapper">
+        <div class="lid one"></div>
+        <div class="lid two"></div>
+        <div class="envelope"></div>
 
-        <!-- Slide 2 (white background vibe + teddy + big YES + small NO) -->
-        <div class="slide" id="slide2">
-          <div class="teddy-wrap" aria-hidden="true">
-            <img src="teddy.png" class="teddy-img" alt="Teddybear" />
-            <div class="hearts">💗 💗 💗</div>
+        <div class="letter">
+          <div class="slide active" id="slide1">
+            <p>Happy Valentine’s ❤️❤️❤️</p>
           </div>
-
-          <h2 class="question">Will you be my Valentine?</h2>
-
-          <div class="answer-buttons">
-            <button id="yesBtn" class="big-yes">Yes</button>
-            <button id="noBtn" class="small-no">No</button>
-          </div>
-
-          <div id="noMsg" class="no-msg"> </div>
         </div>
+      </div>
 
-        <!-- Slide 3 (keep your format) -->
-        <div class="slide" id="slide3">
-          <p class="slide-title">I’m so glad you said YES ❤️❤️❤️</p>
-          <p class="slide-sub"><strong>Venue & time:</strong><br>To be decided 😉</p>
+      <div class="buttons">
+        <button id="openBtn">Open</button>
+        <button id="closeBtn" style="display:none;">Close</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Screen 2: Question ===== -->
+  <section id="screen2" class="screen">
+    <div class="card">
+      <h1 class="title">Will you be my Valentine? 💖</h1>
+
+      <div class="answer-area" id="answerArea">
+        <button id="yesBtn" class="yes-btn">Yes</button>
+
+        <div class="no-wrap">
+          <button id="noBtn" class="no-btn">No</button>
+          <div id="noText" class="no-text">Don’t do this to me 😭</div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="buttons">
-      <button id="openBtn">Open</button>
-      <button id="closeBtn" style="display:none;">Close</button>
+  <!-- ===== Screen 3: Final ===== -->
+  <section id="screen3" class="screen">
+    <div class="card">
+      <h2 class="final-title">I’m so glad you said YES ❤️❤️❤️</h2>
+      <p class="final-text"><strong>Venue & time:</strong><br />To be decided 😉</p>
     </div>
-  </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
 </html>
+
 
