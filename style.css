@@ -1,0 +1,87 @@
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background: #0b0b2a;
+  overflow: hidden;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  position: relative;
+  z-index: 10;
+}
+
+.wrapper {
+  position: relative;
+  width: 300px;
+  height: 200px;
+}
+
+.envelope {
+  width: 300px;
+  height: 200px;
+  background: #f3a7b5;
+  border-radius: 5px;
+}
+
+.letter {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  width: 270px;
+  height: 160px;
+  background: white;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+/* Slides */
+.slide {
+  display: none;
+  text-align: center;
+}
+
+.slide.active {
+  display: block;
+}
+
+/* Buttons area */
+.buttons {
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* YES button */
+.big-btn {
+  font-size: 32px;
+  padding: 16px 36px;
+  background-color: pink;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* NO button */
+.small-btn {
+  font-size: 14px;
+  padding: 6px 14px;
+  background-color: lightgray;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.answer-buttons {
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
