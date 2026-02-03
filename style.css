@@ -238,7 +238,56 @@ button:hover{ filter: brightness(0.95); }
   opacity: 1;
   transform: translateY(0);
 }
+/* ===== Floating hearts ===== */
+.hearts-layer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
 
+.heart{
+  position: absolute;
+  bottom: -30px;
+  font-size: 18px;
+  animation: floatHeart linear forwards;
+  opacity: 0.9;
+}
 
+@keyframes floatHeart{
+  from{
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10%{ opacity: 0.9; }
+  to{
+    transform: translateY(-110vh) translateX(var(--drift));
+    opacity: 0;
+  }
+}
+
+/* ===== Confetti ===== */
+.confetti-layer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.confetti{
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+  to{
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
 
 
