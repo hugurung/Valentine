@@ -1,36 +1,52 @@
 const openBtn = document.getElementById("openBtn");
 const closeBtn = document.getElementById("closeBtn");
-const wrapper = document.querySelector(".wrapper");
+const wrapper = document.getElementById("wrapper");
 
-const slide1 = document.getElementById("slide1");
-const slide2 = document.getElementById("slide2");
-const slide3 = document.getElementById("slide3");
+const screen1 = document.getElementById("screen1");
+const screen2 = document.getElementById("screen2");
+const screen3 = document.getElementById("screen3");
 
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const noMsg = document.getElementById("noMsg");
+const answerArea = document.getElementById("answerArea");
+
+const noWrap = document.querySelector(".no-wrap");
+const noText = document.getElementById("noText");
 
 // ✅ Customize these later
-const noPhrases = [
+const noMessages = [
   "Don’t do this to me 😭",
-  "Please say yes 🥺",
-  "I’ll be sad 😢",
-  "Are you sure? 😳",
-  "Try again 😏"
+  "Pleaseeeee? 🥺",
+  "That hurts 😢",
+  "Think again 😳",
+  "We’d be so cute together 💕",
 ];
-let phraseIndex = 0;
+let msgIndex = 0;
 
-function showOnly(target) {
-  [slide1, slide2, slide3].forEach(s => s.classList.remove("active"));
+function showScreen(target) {
+  [screen1, screen2, screen3].forEach(s => s.classList.remove("active"));
   target.classList.add("active");
 }
 
-function resetNoButtonPosition() {
+function resetNoButton() {
   noBtn.style.left = "";
-  noBtn.style.top = "50%";
-  noBtn.style.right = "6px";
-  noBtn.style.transform = "translateY(-50%)";
-  if (noMsg) noMsg.textContent = "";
+  noBtn.style.top = "";
+  noBtn.style.right = "0";
+  noBtn.style.bottom = "0";
+}
+
+function moveNoButtonRandom() {
+  const pad = 10;
+  const maxX = answerArea.clientWidth - noBtn.offsetWidth - pad;
+  const maxY = answerArea.clientHeight - noBtn.offsetHeight - pad;
+
+  const x = Math.max(pad, Math.floor(Math.random() * maxX));
+  const y = Math.max(pad, Math.floor(Math.random() * maxY));
+
+  noBtn.style.right = "auto";
+  noBtn.style.bottom = "auto";
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
 }
 
 openBtn.addEventListener("click", () => {
@@ -38,12 +54,9 @@ openBtn.addEventListener("click", () => {
   openBtn.style.display = "none";
   closeBtn.style.display = "inline-block";
 
-  showOnly(slide1);
-  resetNoButtonPosition();
-
   setTimeout(() => {
-    showOnly(slide2);
-    resetNoButtonPosition();
+    showScreen(screen2);
+    resetNoButton();
   }, 1200);
 });
 
@@ -51,34 +64,21 @@ closeBtn.addEventListener("click", () => {
   wrapper.classList.remove("open");
   closeBtn.style.display = "none";
   openBtn.style.display = "inline-block";
-
-  showOnly(slide1);
-  resetNoButtonPosition();
+  showScreen(screen1);
 });
 
 yesBtn.addEventListener("click", () => {
-  showOnly(slide3);
+  showScreen(screen3);
 });
 
-// Dodge + show message
+// Show message + dodge
 noBtn.addEventListener("mouseenter", () => {
-  // Show a rotating phrase
-  if (noMsg) {
-    noMsg.textContent = noPhrases[phraseIndex % noPhrases.length];
-    phraseIndex++;
-  }
+  msgIndex = (msgIndex + 1) % noMessages.length;
+  noText.textContent = noMessages[msgIndex];
 
-  // Dodge inside the answer-buttons container
-  const parent = noBtn.parentElement; // .answer-buttons
-  const maxX = parent.clientWidth - noBtn.offsetWidth;
-  const maxY = parent.clientHeight - noBtn.offsetHeight;
+  noWrap.classList.add("show-text");
+  moveNoButtonRandom();
 
-  const x = Math.max(0, Math.floor(Math.random() * maxX));
-  const y = Math.max(0, Math.floor(Math.random() * maxY));
-
-  noBtn.style.right = "auto";
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
-  noBtn.style.transform = "none";
+  setTimeout(() => noWrap.classList.remove("show-text"), 900);
 });
 
