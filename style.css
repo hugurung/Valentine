@@ -226,11 +226,21 @@ button:hover{ filter: brightness(0.95); }
 }
 
 /* Show bubble either on hover OR when JS adds .show-text */
-.no-wrap:hover .no-text,
 .no-wrap.show-text .no-text{
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Make the message easier to read */
+.no-text{
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: 0.15s;
+  padding: 10px 12px;
+  border-radius: 12px;
+  box-shadow
 /* ===== Floating hearts ===== */
 .hearts-layer{
   position: fixed;
@@ -314,6 +324,7 @@ button:hover{ filter: brightness(0.95); }
   50%{ transform: translateY(-12px) scale(1.1); }
   100%{ transform: translateY(0) scale(1); }
 }
+
 
 
 
