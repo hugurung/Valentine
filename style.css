@@ -35,15 +35,6 @@ body{
   transform: translateY(-30px);
 }
 
-.bg-teddy{
-  width: 500px;        /* BIG teddy */
-  height: 500px;
-  background-image: url("Teddybear.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0 auto 10px;
-}
 .bg-hearts{
   font-size: 18px;
   margin-top: 6px;
@@ -288,6 +279,40 @@ button:hover{ filter: brightness(0.95); }
   to{
     transform: translateY(110vh) rotate(720deg);
   }
+}
+/* ===== Teddy with floating hearts (ADD this, do not replace file) ===== */
+.bg-teddy{
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.teddy-emoji{
+  font-size: 200px; /* BIG teddy */
+  line-height: 1;
+  z-index: 2;
+}
+
+.teddy-heart{
+  position: absolute;
+  font-size: 28px;
+  animation: teddyFloat 3.5s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+.h1{ top: 10px; left: 40px; animation-delay: 0s; }
+.h2{ top: 20px; right: 35px; animation-delay: 0.6s; }
+.h3{ bottom: 40px; left: 30px; animation-delay: 1.2s; }
+.h4{ bottom: 30px; right: 45px; animation-delay: 1.8s; }
+
+@keyframes teddyFloat{
+  0%{ transform: translateY(0) scale(1); }
+  50%{ transform: translateY(-12px) scale(1.1); }
+  100%{ transform: translateY(0) scale(1); }
 }
 
 
