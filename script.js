@@ -1,6 +1,6 @@
 // ===== Elements =====
 const openBtn = document.getElementById("openBtn");
-const closeBtn = document.getElementById("closeBtn");
+const closeBtn = document.getElementById("closeBtn"); // (you commented its handler - that's fine)
 const wrapper = document.getElementById("wrapper");
 
 const screen1 = document.getElementById("screen1");
@@ -16,10 +16,12 @@ const noText = document.getElementById("noText");
 
 const heartsLayer = document.getElementById("heartsLayer");
 const confettiLayer = document.getElementById("confettiLayer");
+
 const teddyEmoji = document.querySelector(".teddy-emoji");
+
 // ✅ Customize these later
 const noMessages = [
-  "Input is invalid 😌",
+ "Input is invalid 😌",
   "Runchu hola ma 😭😭😭",
 ];
 
@@ -43,7 +45,6 @@ function resetNoButton() {
 function moveNoButtonRandom() {
   const pad = 10;
 
-  // Prevent negative max when container is small
   const maxX = Math.max(0, answerArea.clientWidth - noBtn.offsetWidth - pad);
   const maxY = Math.max(0, answerArea.clientHeight - noBtn.offsetHeight - pad);
 
@@ -57,39 +58,7 @@ function moveNoButtonRandom() {
   noBtn.style.top = `${y}px`;
 }
 
-// ===== Envelope buttons =====
-openBtn.addEventListener("click", () => {
-  wrapper.classList.add("open");
-  openBtn.style.display = "none";
-  closeBtn.style.display = "inline-block";
-
-  setTimeout(() => {
-    showScreen(screen2);
-    resetNoButton();
-  }, 4100);
-});
-yesBtn.addEventListener("click", () => {
-  teddyReact();
-  teddyHeartBurst(18);
-
-  confettiBurst(160);
-  showScreen(screen3);
-});
-/*closeBtn.addEventListener("click", () => {
-  wrapper.classList.remove("open");
-  closeBtn.style.display = "none";
-  openBtn.style.display = "inline-block";
-  showScreen(screen1);
-});*/
-
-// ===== YES -> confetti + screen3 =====
-yesBtn.addEventListener("click", () => {
-  confettiBurst(160);
-  showScreen(screen3);
-});
-
-// ===== NO -> rotate message + show bubble + dodge =====
-noBtn.addEventListener("mouseenter", () => {
+function showNoMessageAndDodge() {
   // rotate message
   noText.textContent = noMessages[msgIndex];
   msgIndex = (msgIndex + 1) % noMessages.length;
@@ -105,6 +74,48 @@ noBtn.addEventListener("mouseenter", () => {
   hideNoTextTimer = setTimeout(() => {
     if (noWrap) noWrap.classList.remove("show-text");
   }, 1800);
+}
+
+// ===== Envelope buttons =====
+openBtn.addEventListener("click", () => {
+  wrapper.classList.add("open");
+  openBtn.style.display = "none";
+  if (closeBtn) closeBtn.style.display = "inline-block";
+
+  // you set 4100ms to keep slide 1 longer ✅
+  setTimeout(() => {
+    showScreen(screen2);
+    resetNoButton();
+  }, 4100);
+});
+
+// (Optional) If you ever re-enable Close, use this:
+/*
+closeBtn.addEventListener("click", () => {
+  wrapper.classList.remove("open");
+  closeBtn.style.display = "none";
+  openBtn.style.display = "inline-block";
+  showScreen(screen1);
+});
+*/
+
+// ===== YES -> teddy react + heart burst + confetti + screen3 =====
+yesBtn.addEventListener("click", () => {
+  teddyReact();
+  teddyHeartBurst(18);
+  confettiBurst(160);
+  showScreen(screen3);
+});
+
+// ===== NO (Desktop): hover -> message + dodge =====
+noBtn.addEventListener("mouseenter", () => {
+  showNoMessageAndDodge();
+});
+
+// ===== NO (Mobile): tap -> message + dodge =====
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault(); // prevents accidental "click"
+  showNoMessageAndDodge();
 });
 
 // hide bubble if mouse leaves the whole answer area
@@ -152,10 +163,12 @@ function confettiBurst(amount = 150) {
     setTimeout(() => c.remove(), 5200);
   }
 }
+
+// ===== Teddy reaction =====
 function teddyReact() {
   if (!teddyEmoji) return;
   teddyEmoji.classList.remove("teddy-react"); // restart animation
-  void teddyEmoji.offsetWidth;                // force reflow
+  void teddyEmoji.offsetWidth;               // force reflow
   teddyEmoji.classList.add("teddy-react");
 }
 
@@ -173,7 +186,6 @@ function teddyHeartBurst(amount = 14) {
     el.className = "teddy-burst-heart";
     el.textContent = burstHearts[Math.floor(Math.random() * burstHearts.length)];
 
-    // random burst direction
     const dx = (Math.random() * 240 - 120).toFixed(0) + "px";
     const dy = (Math.random() * -220 - 40).toFixed(0) + "px";
 
