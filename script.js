@@ -19,7 +19,7 @@ const confettiLayer = document.getElementById("confettiLayer");
 const teddyEmoji = document.querySelector(".teddy-emoji");
 // ✅ Customize these later
 const noMessages = [
-  "Invalid input 🥺 > Runchu hola ma 😭😭😭",
+  "Input is invalid 🥺 Runchu hola ma 😭😭😭",
 ];
 
 let msgIndex = 0;
@@ -65,7 +65,7 @@ openBtn.addEventListener("click", () => {
   setTimeout(() => {
     showScreen(screen2);
     resetNoButton();
-  }, 1200);
+  }, 4100);
 });
 yesBtn.addEventListener("click", () => {
   teddyReact();
@@ -185,6 +185,7 @@ function teddyHeartBurst(amount = 14) {
     setTimeout(() => el.remove(), 950);
   }
 }
+
 
 
 
