@@ -19,8 +19,7 @@ const confettiLayer = document.getElementById("confettiLayer");
 
 // ✅ Customize these later
 const noMessages = [
-  "Invalid input 🥺🥺🥺",
-  "Runchu hola ma 😭😭😭",
+  "Invalid input 🥺 > Runchu hola ma 😭😭😭",
 ];
 
 let msgIndex = 0;
@@ -146,6 +145,7 @@ function confettiBurst(amount = 150) {
     setTimeout(() => c.remove(), 5200);
   }
 }
+
 
 
 
