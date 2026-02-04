@@ -21,8 +21,8 @@ const teddyEmoji = document.querySelector(".teddy-emoji");
 
 // ✅ Customize these later
 const noMessages = [
- "Input is invalid 😌",
   "Runchu hola ma 😭😭😭",
+ "Input is invalid 😌",
 ];
 
 let msgIndex = 0;
@@ -198,6 +198,7 @@ function teddyHeartBurst(amount = 14) {
     setTimeout(() => el.remove(), 950);
   }
 }
+
 
 
 
