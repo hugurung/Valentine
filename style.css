@@ -340,6 +340,40 @@ button:hover{ filter: brightness(0.95); }
 }
 
 
+/* ===== Teddy reacts on YES ===== */
+.teddy-emoji{
+  display: inline-block; /* needed so transform works nicely */
+  transform-origin: 50% 70%;
+}
+
+.teddy-emoji.teddy-react{
+  animation: teddyPop 700ms ease-in-out;
+}
+
+@keyframes teddyPop{
+  0%   { transform: scale(1) rotate(0deg); }
+  25%  { transform: scale(1.18) rotate(-6deg); }
+  55%  { transform: scale(1.12) rotate(6deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ===== Heart burst from teddy ===== */
+.teddy-burst-heart{
+  position: fixed;          /* we place using viewport coords */
+  left: 0;
+  top: 0;
+  font-size: 22px;
+  pointer-events: none;
+  z-index: 1000;
+  animation: teddyBurst 900ms ease-out forwards;
+  transform: translate(-50%, -50%); /* center on spawn point */
+}
+
+@keyframes teddyBurst{
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+  10%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.25); }
+}
 
 
 
