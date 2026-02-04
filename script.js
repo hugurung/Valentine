@@ -16,7 +16,7 @@ const noText = document.getElementById("noText");
 
 const heartsLayer = document.getElementById("heartsLayer");
 const confettiLayer = document.getElementById("confettiLayer");
-
+const teddyEmoji = document.querySelector(".teddy-emoji");
 // ✅ Customize these later
 const noMessages = [
   "Invalid input 🥺 > Runchu hola ma 😭😭😭",
@@ -67,13 +67,19 @@ openBtn.addEventListener("click", () => {
     resetNoButton();
   }, 1200);
 });
+yesBtn.addEventListener("click", () => {
+  teddyReact();
+  teddyHeartBurst(18);
 
-closeBtn.addEventListener("click", () => {
+  confettiBurst(160);
+  showScreen(screen3);
+});
+/*closeBtn.addEventListener("click", () => {
   wrapper.classList.remove("open");
   closeBtn.style.display = "none";
   openBtn.style.display = "inline-block";
   showScreen(screen1);
-});
+});*/
 
 // ===== YES -> confetti + screen3 =====
 yesBtn.addEventListener("click", () => {
@@ -143,6 +149,40 @@ function confettiBurst(amount = 150) {
 
     confettiLayer.appendChild(c);
     setTimeout(() => c.remove(), 5200);
+  }
+}
+function teddyReact() {
+  if (!teddyEmoji) return;
+  teddyEmoji.classList.remove("teddy-react"); // restart animation
+  void teddyEmoji.offsetWidth;                // force reflow
+  teddyEmoji.classList.add("teddy-react");
+}
+
+function teddyHeartBurst(amount = 14) {
+  if (!teddyEmoji) return;
+
+  const rect = teddyEmoji.getBoundingClientRect();
+  const originX = rect.left + rect.width / 2;
+  const originY = rect.top + rect.height / 2;
+
+  const burstHearts = ["💗", "💖", "💕", "💘", "❤️"];
+
+  for (let i = 0; i < amount; i++) {
+    const el = document.createElement("div");
+    el.className = "teddy-burst-heart";
+    el.textContent = burstHearts[Math.floor(Math.random() * burstHearts.length)];
+
+    // random burst direction
+    const dx = (Math.random() * 240 - 120).toFixed(0) + "px";
+    const dy = (Math.random() * -220 - 40).toFixed(0) + "px";
+
+    el.style.left = originX + "px";
+    el.style.top = originY + "px";
+    el.style.setProperty("--dx", dx);
+    el.style.setProperty("--dy", dy);
+
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 950);
   }
 }
 
