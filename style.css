@@ -194,7 +194,7 @@ button:hover{ filter: brightness(0.95); }
 .answer-area{
   position: relative;
   height: 190px;              /* ⬅️ taller box */
-  width: 100%;                /* full width inside card */
+  width: 130%;                /* full width inside card */
   margin-top: 20px;           /* spacing from question text */
   display: grid;
   place-items: center;
@@ -375,6 +375,7 @@ button:hover{ filter: brightness(0.95); }
   10%  { opacity: 1; }
   100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.25); }
 }
+
 
 
 
