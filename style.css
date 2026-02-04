@@ -225,17 +225,27 @@ button:hover{ filter: brightness(0.95); }
 }
 
 .no-text{
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 700;
   color: #222;
   background: rgba(255,255,255,0.95);
   border: 1px solid rgba(0,0,0,0.10);
-  padding: 7px 10px;
-  border-radius: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+
   opacity: 0;
   transform: translateY(6px);
-  transition: 0.2s;
+  transition: 0.15s;
   pointer-events: none;
   white-space: nowrap;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+
+/* Show bubble when JS adds .show-text */
+.no-wrap.show-text .no-text{
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Show bubble either on hover OR when JS adds .show-text */
@@ -244,16 +254,7 @@ button:hover{ filter: brightness(0.95); }
   transform: translateY(0);
 }
 
-/* Make the message easier to read */
-.no-text{
-  font-size: 14px;
-  font-weight: 700;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: 0.15s;
-  padding: 10px 12px;
-  border-radius: 12px;
-  box-shadow
+
 /* ===== Floating hearts ===== */
 .hearts-layer{
   position: fixed;
@@ -337,6 +338,7 @@ button:hover{ filter: brightness(0.95); }
   50%{ transform: translateY(-12px) scale(1.1); }
   100%{ transform: translateY(0) scale(1); }
 }
+
 
 
 
