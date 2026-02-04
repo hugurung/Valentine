@@ -17,37 +17,14 @@ const noText = document.getElementById("noText");
 const heartsLayer = document.getElementById("heartsLayer");
 const confettiLayer = document.getElementById("confettiLayer");
 
+// ✅ Customize these later
 const noMessages = [
-  "Runchu hola ma 😭😭😭",
   "Invalid input 🥺🥺🥺",
+  "Runchu hola ma 😭😭😭",
 ];
+
 let msgIndex = 0;
-
 let hideNoTextTimer = null;
-
-noBtn.addEventListener("mouseenter", () => {
-  // rotate message
-  noText.textContent = noMessages[msgIndex];
-  msgIndex = (msgIndex + 1) % noMessages.length;
-
-  // show message bubble (stay visible even after dodge)
-  noWrap.classList.add("show-text");
-
-  // dodge
-  moveNoButtonRandom();
-
-  // keep it visible for 1.8s
-  clearTimeout(hideNoTextTimer);
-  hideNoTextTimer = setTimeout(() => {
-    noWrap.classList.remove("show-text");
-  }, 1800);
-});
-
-// optional: if you want it to hide when you move away from the area entirely
-answerArea.addEventListener("mouseleave", () => {
-  clearTimeout(hideNoTextTimer);
-  noWrap.classList.remove("show-text");
-});
 
 // ===== Helpers =====
 function showScreen(target) {
@@ -73,7 +50,7 @@ function moveNoButtonRandom() {
   const x = pad + Math.floor(Math.random() * (maxX + 1));
   const y = pad + Math.floor(Math.random() * (maxY + 1));
 
-  // IMPORTANT: unset right/bottom so left/top actually applies
+  // IMPORTANT: unset right/bottom so left/top works
   noBtn.style.right = "auto";
   noBtn.style.bottom = "auto";
   noBtn.style.left = `${x}px`;
@@ -111,14 +88,22 @@ noBtn.addEventListener("mouseenter", () => {
   noText.textContent = noMessages[msgIndex];
   msgIndex = (msgIndex + 1) % noMessages.length;
 
-  // show bubble (works with your .no-wrap.show-text CSS)
+  // show message bubble (stays visible even after dodge)
   if (noWrap) noWrap.classList.add("show-text");
 
   // dodge
   moveNoButtonRandom();
+
+  // keep it visible for 1.8s
+  clearTimeout(hideNoTextTimer);
+  hideNoTextTimer = setTimeout(() => {
+    if (noWrap) noWrap.classList.remove("show-text");
+  }, 1800);
 });
 
-noBtn.addEventListener("mouseleave", () => {
+// hide bubble if mouse leaves the whole answer area
+answerArea.addEventListener("mouseleave", () => {
+  clearTimeout(hideNoTextTimer);
   if (noWrap) noWrap.classList.remove("show-text");
 });
 
