@@ -65,10 +65,7 @@ body{
 .title{
   font-size: 30px;
   color: #111;
-  text-align: center;          /* horizontal center */
-  margin: 0 auto 24px;         /* balanced spacing */
-  max-width: 90%;              /* prevents edge hugging on mobile */
-  line-height: 1.3;            /* nicer multi-line spacing */
+  margin-bottom: 18px;
 }
 
 .final-title{
@@ -378,6 +375,7 @@ button:hover{ filter: brightness(0.95); }
   10%  { opacity: 1; }
   100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.25); }
 }
+
 
 
 
